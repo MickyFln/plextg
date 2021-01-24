@@ -1,12 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const http = require("http");
-const hostname = '127.0.0.1';
-const port = 3141;
-const server = http.createServer((req, res) => {
-    req.statusCode = 200;
-    console.log(req);
+const express = require("express");
+const bodyParser = require("body-parser");
+// Initialize express and define a port
+const app = express();
+const PORT = 3000;
+// Tell express to use body-parser's JSON parsing
+app.use(bodyParser.json());
+app.post('/event', (req, res) => {
+    console.log(req.body); // Call your action on the request here
+    res.status(200).end();
 });
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+// Start express on the defined port
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
